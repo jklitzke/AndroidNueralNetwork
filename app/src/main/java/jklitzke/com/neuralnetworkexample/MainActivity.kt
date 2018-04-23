@@ -3,10 +3,12 @@ package jklitzke.com.neuralnetworkexample
 import android.os.Bundle
 import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 
 import kotlinx.android.synthetic.main.activity_main.*
+import java.io.IOException
 
 class MainActivity : AppCompatActivity() {
 
@@ -19,6 +21,20 @@ class MainActivity : AppCompatActivity() {
             Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                     .setAction("Action", null).show()
         }
+
+        val json = try {
+            val inputStream = assets.open("biases.json")
+            val size = inputStream.available()
+            val buffer = ByteArray(size)
+
+            inputStream.read(buffer)
+            inputStream.close()
+            String(buffer, Charsets.UTF_8)
+        } catch (ex: IOException) {
+            "NO JSON FOUND!"
+        }
+
+        Log.d("FILE_IO", "$json")
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

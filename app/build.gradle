@@ -20,6 +20,20 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
+    testOptions {
+        unitTests {
+            includeAndroidResources = true
+        }
+    }
+
+    sourceSets.test {
+        resources.srcDirs += ["${projectDir}/src/assets"]
+    }
+
+    sourceSets.release {
+        resources.srcDirs += ["${projectDir}/src/assets"]
+    }
 }
 
 dependencies {
